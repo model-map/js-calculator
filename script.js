@@ -10,7 +10,7 @@ const screen=document.querySelector('.screen');
             if (dataKey=='CE'){
                 screen.textContent=screen.textContent.slice(0,-1);
             }
-            else {
+            else if (screen.textContent.length-10<=40){
                 const text=button.textContent;
                 screen.textContent+=text;}
         })
@@ -35,15 +35,3 @@ const screen=document.querySelector('.screen');
             console.log("I need to add fn to evaluate expression here :| ")
         }
     })
-
-// Backspace and CE function
-
-    /*
-    Key     |NumBar     |NumPad
-    (       57          -
-    )       48
-    %       53
-    7       55          103
-    8       
-
-    */
