@@ -5,12 +5,12 @@ const screen=document.querySelector('.screen');
 
     // CLICK
     buttons.forEach((button)=>{
-        button.addEventListener("click",(e)=>{
+        button.addEventListener("mousedown",(e)=>{
             const dataKey= button.getAttribute('data-key');
             if (dataKey=='CE'){
                 screen.textContent=screen.textContent.slice(0,-1);
             }
-            else if (screen.textContent.length-10<=40){
+            else if (checkLength(screen.textContent)){
                 const text=button.textContent;
                 screen.textContent+=text;}
         })
@@ -24,8 +24,8 @@ const screen=document.querySelector('.screen');
 
         if (keys.includes(key)){
             e.preventDefault();         // prevents quick find associated with / button
-            const text=key;
-            screen.textContent+=key;
+            if(checkLength(screen.textContent)){
+                screen.textContent+=key};
         }
         else if (key=='Backspace'){
             screen.textContent=screen.textContent.slice(0,-1);
@@ -35,3 +35,9 @@ const screen=document.querySelector('.screen');
             console.log("I need to add fn to evaluate expression here :| ")
         }
     })
+
+// Functions
+
+function checkLength (expression){
+    return expression.length-10<=40?true:false;
+}
