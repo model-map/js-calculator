@@ -14,6 +14,21 @@ const screen=document.querySelector('.screen');
         })
     })
 
+    //Keyboard
+    window.addEventListener("keypress",(e)=>{
+        e.preventDefault();         // prevents quick find associated with / button
+        //console.log(e['key']);
+        const key=e['key'];
+        const keys=['(', ')', '%', '/', '*', '-', '+', '.', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+        if (keys.includes(key)){
+            const text=key;
+            screen.textContent+=key;
+        }
+        else if (key=='=' || key=='Enter'){
+            // Evaluate 
+            console.log("I need to add fn to evaluate expression here :| ")
+        }
+    })
 
     /*
     Key     |NumBar     |NumPad
