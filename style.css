@@ -46,6 +46,13 @@ body{
     gap: 1vh;
 }
 
+.screen{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding-right: 5em;
+}
+
 .buttons{
     gap: 5px;
 }
