@@ -2,7 +2,7 @@ const buttons=document.querySelectorAll(`[data-key]`);
 const screen=document.querySelector('.screen');
 let expression=null;
 
-const keys=['(', ')', '%', '/', '*', '-', '+', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9','=','Enter','Backspace'];
+const keys=['/', '*', '-', '+', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9','=','Enter','Backspace','End','.'];
 const keysNum=['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
 const keysOperators=['/', '*', '-', '+'];
 
@@ -28,8 +28,12 @@ const keysOperators=['/', '*', '-', '+'];
 // Functions
 function setExpression(key){
     expression=screen.textContent.trim(); // remove whitespace
-        if (key=='=' || key=='Enter' || key=='=') calculate(expression);
+        if (key=='=' || key=='Enter') calculate(expression);
         else if (key=='Backspace' || key=='CE') screen.textContent=screen.textContent.slice(0,-1);
+        else if (key=='End'){
+            expression=null;
+            screen.textContent='';
+        }
         else if (expression.length<=40){ // Max 40 chars allowed on screen
             if (expression.length==0 && keysNum.includes(key)) // Only allow number at expression beginning
             {screen.textContent+=key;
@@ -47,8 +51,8 @@ function setExpression(key){
 function calculate(expression){
 
     if (checkExpression(expression)){
-        expression=expression.split(/(\d+)/);
-        expression=expression.slice(1,-1);
+        expression=expression.split(/([\\\*\+\-])/);
+        console.log(expression);
 
         while(expression.length>1){
             keysOperators.forEach((operator)=>{
@@ -62,7 +66,7 @@ function calculate(expression){
             })
         }
 
-        screen.textContent=`${expression[0]}`;
+        screen.textContent=`${expression}`;
     }
 
     else{
@@ -78,12 +82,13 @@ function checkExpression(expression){
 }
 
 function getResult(num1,operator,num2){
-    num1=parseInt(num1);
-    num2=parseInt(num2);
+    num1=parseFloat(num1);
+    num2=parseFloat(num2);
 
     if (operator=='/') result=num1/num2;
     if (operator=="*") result=num1*num2;
     if (operator=='+') result=num1+num2;
     if (operator=='-') result=num1-num2;
+    console.log(result);
     return result;
 }

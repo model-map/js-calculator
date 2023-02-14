@@ -1,0 +1,128 @@
+@import url('https://fonts.googleapis.com/css2?family=Wallpoet&display=swap');
+
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+img{
+    height:2.5vh;
+    width: auto;
+}
+
+[data-key],
+kbd{
+    font-family: 'Wallpoet', cursive;
+}
+
+/* --------------------------------------------------- */ 
+
+.buttons{
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+}
+
+/* bg color */
+
+body{
+    font-family: 'Wallpoet', cursive;
+    background-color: #202124;
+}
+
+.container{
+    background-color: #5f6368;
+}
+
+.screen{
+    background-color: #3b3b3b;
+}
+
+button{
+    font-family: 'Orbitron', sans-serif;
+    border-color: #202124;
+    background-color: #5f6368;
+}
+
+[data-key='CE']{
+    grid-column-start: 3;
+    grid-column-end: 5;
+    width: 20.5vw;
+}
+
+[data-key='AC']{
+    grid-column-start: 1;
+    grid-column-end: 3;
+    width: 20.5vw;
+}
+
+[data-key='=']{
+    grid-column-start: 2;
+    grid-column-end: 4;
+    width: 20.5vw;
+}
+
+/* flex */
+
+body{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.header{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.footer{
+    display:flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.container{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    gap: 1vh;
+}
+
+.screen{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding:0 5em;
+}
+
+.buttons{
+    gap: 5px;
+}
+
+/* heights */
+
+body{
+    height: 100vh;
+    width: 100vw;
+    padding: 2%;
+}
+
+.container{
+    height: 60vh;
+    width: 60vw;
+}
+
+.screen{
+    height: 100%;
+    width: 100%;
+}
+
+button{
+    height: 8vh;
+    width: 10vw;
+}
+
+
