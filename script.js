@@ -51,7 +51,7 @@ function setExpression(key){
 function calculate(expression){
 
     if (checkExpression(expression)){
-        expression=expression.split(/([\\\*\+\-])/);
+        expression=expression.split(/([\/\*\+\-])/);
         console.log(expression);
 
         while(expression.length>1){
