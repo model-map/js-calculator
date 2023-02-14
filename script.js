@@ -2,7 +2,7 @@ const buttons=document.querySelectorAll(`[data-key]`);
 const screen=document.querySelector('.screen');
 let expression=null;
 
-const keys=['(', ')', '%', '/', '*', '-', '+', '.', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+const keys=['(', ')', '%', '/', '*', '-', '+', '.', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9','=','Enter','Backspace'];
 const keysNum=['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
 const keysOperators=['/', '*', '-', '+'];
 
@@ -19,12 +19,12 @@ const keysOperators=['/', '*', '-', '+'];
                 screen.textContent=screen.textContent.slice(0,-1);
             }
             else if (checkLength(expression)){
-                if (expression.length==0 && keysNum.includes(dataKey))
+                if (expression.length==0 && keysNum.includes(dataKey)) // Only allow number at expression beginning
                 {screen.textContent+=dataKey;
             }
                 else if(expression.length>0){
                     if (keysOperators.includes(dataKey)){
-                        if (!keysOperators.includes(expression.slice(-1))){
+                        if (!keysOperators.includes(expression.slice(-1))){ // Doesnt allow two operators in succession
                             screen.textContent+=dataKey;}
                     }
                     else screen.textContent+=dataKey;
@@ -35,31 +35,30 @@ const keysOperators=['/', '*', '-', '+'];
 
     //Keyboard
     window.addEventListener("keydown",(e)=>{
-        //console.log(e['key']);
+        expression=screen.textContent.trim(); // remove whitespace
         const key=e['key'];
-
         if (keys.includes(key)){
-            e.preventDefault();         // prevents quick find associated with / button
-            if(checkLength(screen.textContent)){
-                screen.textContent+=key};
-        }
-        else if (key=='Backspace'){
-            screen.textContent=screen.textContent.slice(0,-1);
-        }
-        else if (key=='=' || key=='Enter'){
-            // Evaluate 
-            calculate(expression);
-        }
-        expression=screen.textContent;
-
-
+            e.preventDefault();
+            if (key=='=' || key=='Enter') calculate(expression);
+            else if (key=='Backspace') screen.textContent=screen.textContent.slice(0,-1);
+            else if (checkLength(expression)){
+                if (expression.length==0 && keysNum.includes(key)) // Only allow number at expression beginning
+                {screen.textContent+=key;
+            }
+                else if(expression.length>0){
+                    if (keysOperators.includes(key)){
+                        if (!keysOperators.includes(expression.slice(-1))){ // Doesnt allow two operators in succession
+                            screen.textContent+=key;}
+                    }
+                    else screen.textContent+=key;
+                }
+            }}
     })
 
 // Functions
 
 
 function checkLength (expression){
-    expression=expression.trim();
     return expression.length<=40?true:false;
 }
 
@@ -81,21 +80,6 @@ function calculate(expression){
                 }
             })
         }
-
-/*         while (expression.length>1){
-            if (expression.includes('/')){ 
-                getDivision(expression);
-                continue;}
-            if (expression.includes('*')) {
-                getMultiplication(expression);
-                continue;}
-            if (expression.includes('+')) {
-                getAddition(expression);
-                continue;}
-            if (expression.includes('-')) {
-                getSubtraction(expression);
-                continue;}
-        } */
 
         screen.textContent=`${expression[0]}`;
 
@@ -119,40 +103,3 @@ function getResult(num1,operator,num2){
     if (operator=='-') result=num1-num2;
     return result;
 }
-
-/* function getDivision(expression){
-    const index= expression.indexOf('/');
-    const num1= parseInt(expression[index-1]);
-    const num2=parseInt(expression[index+1]);
-    const result=num1/num2;
-    expression.splice(index-1,3,result);
-    return expression;
-}
-
-function getMultiplication(expression){
-    const index= expression.indexOf('*');
-    const num1= parseInt(expression[index-1]);
-    const num2=parseInt(expression[index+1]);
-    const result=num1*num2;
-    expression.splice(index-1,3,result);
-    return expression;
-}
-
-function getAddition(expression){
-    const index= expression.indexOf('+');
-    const num1= parseInt(expression[index-1]);
-    const num2=parseInt(expression[index+1]);
-    const result=num1+num2;
-    expression.splice(index-1,3,result);
-    return expression;
-}
-
-function getSubtraction(expression){
-    const index= expression.indexOf('-');
-    const num1= parseInt(expression[index-1]);
-    const num2=parseInt(expression[index+1]);
-    const result=num1-num2;
-    expression.splice(index-1,3,result);
-    return expression;
-}
- */
