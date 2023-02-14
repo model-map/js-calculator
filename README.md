@@ -8,10 +8,5 @@ Next Steps:
 
     - script.js
 
-        -Clean expression: 
-
-            - function to not allow more than 40 chars in input or output
-            - open bracket automatically adds closing bracket and any subsequent input within it
-            - dont allow closing bracket if opening bracket doesnt preceded it
-            
-        - perform calculation
+        - Allow decimals
+        - Allow percentage
