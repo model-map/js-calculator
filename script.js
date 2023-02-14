@@ -52,7 +52,6 @@ function calculate(expression){
 
     if (checkExpression(expression)){
         expression=expression.split(/([\/\*\+\-])/);
-        console.log(expression);
 
         while(expression.length>1){
             keysOperators.forEach((operator)=>{

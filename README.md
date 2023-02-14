@@ -9,5 +9,4 @@ Next Steps:
 
     - script.js
 
-        - Allow decimals
-        - Allow percentage
+        - Allow seeing old expression above the result
