@@ -4,7 +4,7 @@ let expression=null;
 
 const keys=['(', ')', '%', '/', '*', '-', '+', '.', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
 const keysNum=['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
-const keysOperators=['(', ')', '%', '/', '*', '-', '+', '.'];
+const keysOperators=['/', '*', '-', '+'];
 
 // Event Listeners
 
@@ -64,19 +64,46 @@ function checkLength (expression){
 }
 
 function calculate(expression){
-    expression=expression.trim();
-    console.log("Yeah i'll work soon dont worry :/ ");
-    console.log("Here, meanwhile check if the expression is ok");
-    console.log("-----------EXPRESSION----------");
-    console.log(expression);
 
-    // check expression
-        // 1. should have numbers on first and last index
-        // 2. should have at least two numbers and one operator
-        //3. should have n numbers and n-1 operators
+    if (checkExpression(expression)){
+        expression=expression.split(/(\d+)/);
+        expression=expression.slice(1,-1);
 
-    console.log(checkExpression(expression));
     
+        while(expression.length>1){
+            keysOperators.forEach((operator)=>{
+                if (expression.includes(operator)){
+                    const index= expression.indexOf(operator);
+                    const num1= parseInt(expression[index-1]);
+                    const num2=parseInt(expression[index+1]);
+                    const result= getResult(num1,operator,num2);
+                    expression.splice(index-1,3,result);
+                }
+            })
+        }
+
+/*         while (expression.length>1){
+            if (expression.includes('/')){ 
+                getDivision(expression);
+                continue;}
+            if (expression.includes('*')) {
+                getMultiplication(expression);
+                continue;}
+            if (expression.includes('+')) {
+                getAddition(expression);
+                continue;}
+            if (expression.includes('-')) {
+                getSubtraction(expression);
+                continue;}
+        } */
+
+        screen.textContent=`${expression[0]}`;
+
+    }
+
+    else{
+        // when expression isnt valid
+    }
     
 
 }
@@ -84,3 +111,48 @@ function calculate(expression){
 function checkExpression(expression){
     return keysNum.includes(expression.slice(-1))?true:false;
 }
+
+function getResult(num1,operator,num2){
+    if (operator=='/') result=num1/num2;
+    if (operator=="*") result=num1*num2;
+    if (operator=='+') result=num1+num2;
+    if (operator=='-') result=num1-num2;
+    return result;
+}
+
+/* function getDivision(expression){
+    const index= expression.indexOf('/');
+    const num1= parseInt(expression[index-1]);
+    const num2=parseInt(expression[index+1]);
+    const result=num1/num2;
+    expression.splice(index-1,3,result);
+    return expression;
+}
+
+function getMultiplication(expression){
+    const index= expression.indexOf('*');
+    const num1= parseInt(expression[index-1]);
+    const num2=parseInt(expression[index+1]);
+    const result=num1*num2;
+    expression.splice(index-1,3,result);
+    return expression;
+}
+
+function getAddition(expression){
+    const index= expression.indexOf('+');
+    const num1= parseInt(expression[index-1]);
+    const num2=parseInt(expression[index+1]);
+    const result=num1+num2;
+    expression.splice(index-1,3,result);
+    return expression;
+}
+
+function getSubtraction(expression){
+    const index= expression.indexOf('-');
+    const num1= parseInt(expression[index-1]);
+    const num2=parseInt(expression[index+1]);
+    const result=num1-num2;
+    expression.splice(index-1,3,result);
+    return expression;
+}
+ */
