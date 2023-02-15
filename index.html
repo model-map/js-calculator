@@ -14,30 +14,33 @@
     </div>
     <div class="container">
         <div class="screen">
-
+            <div id="oldExpression"></div>
+            <div id="curExpression"></div>
         </div>
         <div class="buttons">
 <!--             <button disabled data-key='('>(</button>
             <button disabled  data-key=')'>)</button>
             <button disabled  data-key='%'>%</button> -->
-            <button data-key='End'>Clear</button>
-            <button data-key='CE'>Backspace</button>
+            <button data-key='End'>AC</button>
+            <button id="signChange"><sup>+</sup>/<sub>-</sub></button>
+            <button data-key='%'>%</button>
+            <button data-key='/' class="operand">/</button>
             <button data-key='7' class="num">7</button>
             <button data-key='8' class="num">8</button>
             <button data-key='9' class="num">9</button>
-            <button data-key='/' class="operand">/</button>
+            <button data-key='*' class="operand">X</button>
             <button data-key='4' class="num">4</button>
             <button data-key='5' class="num">5</button>
             <button data-key='6' class="num">6</button>
-            <button data-key='*' class="operand">x</button>
+            <button data-key='-' class="operand">-</button>
             <button data-key='1' class="num">1</button>
             <button data-key='2' class="num">2</button>
             <button data-key='3' class="num">3</button>
-            <button data-key='-' class="operand">-</button>
+            <button data-key='+' class="operand">+</button>
+            <button id='undo' class="num">↶</button>
             <button data-key='0' class="num">0</button>
             <button data-key='.'>.</button>
             <button data-key='='>=</button>
-            <button data-key='+' class="operand">+</button>
         </div>
     </div>
     <div class="footer">

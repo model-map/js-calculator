@@ -1,5 +1,6 @@
 const buttons=document.querySelectorAll(`[data-key]`);
-const screen=document.querySelector('.screen');
+const oldExpression= document.querySelector('#oldExpression');
+const curExpression= document.querySelector('#curExpression');
 let expression=null;
 
 const keys=['/', '*', '-', '+', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9','=','Enter','Backspace','End','.'];
@@ -27,23 +28,23 @@ const keysOperators=['/', '*', '-', '+'];
 
 // Functions
 function setExpression(key){
-    expression=screen.textContent.trim(); // remove whitespace
+    expression=curExpression.textContent.trim(); // remove whitespace
         if (key=='=' || key=='Enter') calculate(expression);
-        else if (key=='Backspace' || key=='CE') screen.textContent=screen.textContent.slice(0,-1);
+        else if (key=='Backspace' || key=='CE') curExpression.textContent=curExpression.textContent.slice(0,-1);
         else if (key=='End'){
             expression=null;
-            screen.textContent='';
+            curExpression.textContent='';
         }
-        else if (expression.length<=40){ // Max 40 chars allowed on screen
+        else if (expression.length<=20){ // Max 40 chars allowed on curExpression
             if (expression.length==0 && keysNum.includes(key)) // Only allow number at expression beginning
-            {screen.textContent+=key;
+            {curExpression.textContent+=key;
         }
             else if(expression.length>0){
                 if (keysOperators.includes(key)){
                     if (!keysOperators.includes(expression.slice(-1))){ // Doesnt allow two operators in succession
-                        screen.textContent+=key;}
+                        curExpression.textContent+=key;}
                 }
-                else screen.textContent+=key;
+                else curExpression.textContent+=key;
             }
         }
 }
@@ -65,12 +66,12 @@ function calculate(expression){
             })
         }
 
-        screen.textContent=`${expression}`;
+        oldExpression.textContent=`Ans= ${expression}`;
     }
 
     else{
         // when expression isnt valid
-        // Add css to shake the screen a bit in red
+        // Add css to shake the curExpression a bit in red
     }
     
 
