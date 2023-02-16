@@ -39,7 +39,10 @@ function setExpression(key){
     });
     console.log(expression);
         if (key=='=' || key=='Enter') calculate(expression);
-        else if (key=='Backspace' || key=='CE') curExpression.textContent=curExpression.textContent.slice(0,-1);
+        else if (key=='Backspace' || key=='CE') {
+            curExpression.textContent=curExpression.textContent.slice(0,-1);
+            oldExpression.textContent='';
+        }
         else if (key=='End'){
             expression=null;
             curExpression.textContent='0';
