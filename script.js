@@ -42,7 +42,7 @@ function setExpression(key){
         else if (key=='Backspace' || key=='CE') curExpression.textContent=curExpression.textContent.slice(0,-1);
         else if (key=='End'){
             expression=null;
-            curExpression.textContent='';
+            curExpression.textContent='0';
             oldExpression.textContent='';
         }
         else if (expression.length<=20){ // Max 40 chars allowed on curExpression
@@ -56,8 +56,9 @@ function setExpression(key){
                     curExpression.textContent+=key;                 // only adds % after a number
                 }
             }
-            else if (expression.length==0 && keysNum.includes(key)) // Only allow number at expression beginning
-            {curExpression.textContent+=key;
+            else if (keysNum.includes(key)) // Only allow number at expression beginning
+            {   if (curExpression.textContent=='0') curExpression.textContent=key;
+                else curExpression.textContent+=key;
         }
             else if(expression.length>0){
                 if (keysOperators.includes(key)){
