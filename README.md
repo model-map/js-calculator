@@ -9,4 +9,5 @@ Next Steps:
 
     - script.js
 
-        - Allow seeing old expression above the result
+        - Allow percentages
+        - Allow sign change
