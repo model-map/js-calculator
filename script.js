@@ -29,6 +29,7 @@ const keysOperators=['/', '*', '-', '+'];
 // Functions
 function setExpression(key){
     expression=curExpression.textContent.trim(); // remove whitespace
+    expression=expression.split(/([\/\*\+\-])/);
         if (key=='=' || key=='Enter') calculate(expression);
         else if (key=='Backspace' || key=='CE') curExpression.textContent=curExpression.textContent.slice(0,-1);
         else if (key=='End'){
@@ -36,7 +37,10 @@ function setExpression(key){
             curExpression.textContent='';
         }
         else if (expression.length<=20){ // Max 40 chars allowed on curExpression
-            if (expression.length==0 && keysNum.includes(key)) // Only allow number at expression beginning
+            if (key=='.'){
+                if (!expression.slice(-1).join('').split('').includes('.')) curExpression.textContent+=key;
+            }
+            else if (expression.length==0 && keysNum.includes(key)) // Only allow number at expression beginning
             {curExpression.textContent+=key;
         }
             else if(expression.length>0){
@@ -50,10 +54,7 @@ function setExpression(key){
 }
 
 function calculate(expression){
-
     if (checkExpression(expression)){
-        expression=expression.split(/([\/\*\+\-])/);
-
         while(expression.length>1){
             keysOperators.forEach((operator)=>{
                 if (expression.includes(operator)){
@@ -78,7 +79,7 @@ function calculate(expression){
 }
 
 function checkExpression(expression){
-    return keysNum.includes(expression.slice(-1))?true:false;
+    return keysOperators.includes(expression.slice(-1))?false:true; // if last input is operator then return false
 }
 
 function getResult(num1,operator,num2){
