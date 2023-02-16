@@ -41,7 +41,8 @@ function setExpression(key){
         if (key=='=' || key=='Enter') calculate(expression);
         else if (key=='Backspace' || key=='CE') {
             curExpression.textContent=curExpression.textContent.slice(0,-1);
-            oldExpression.textContent='';
+            const lastInput=expression.slice(-1).join('').split('').slice(-1).join('');
+            if (!keysOperators.includes(lastInput)) oldExpression.textContent='';           //remove the old expression view on screen if digits are altered
         }
         else if (key=='End'){
             expression=null;
