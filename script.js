@@ -30,11 +30,13 @@ const keysOperators=['/', '*', '-', '+','%'];
 function setExpression(key){
     expression=curExpression.textContent.trim(); // remove whitespace
     expression=expression.split(/([\/\*\+\-\%])/);
+    console.log(expression);
         if (key=='=' || key=='Enter') calculate(expression);
         else if (key=='Backspace' || key=='CE') curExpression.textContent=curExpression.textContent.slice(0,-1);
         else if (key=='End'){
             expression=null;
             curExpression.textContent='';
+            oldExpression.textContent='';
         }
         else if (expression.length<=20){ // Max 40 chars allowed on curExpression
             if (key=='.'){
@@ -43,7 +45,7 @@ function setExpression(key){
             else if (key=='%'){
                 const lastInput=expression.slice(-1).join('').split('').slice(-1).join('');
                 if (keysNum.includes(lastInput)) {
-                    curExpression.textContent+=key;
+                    curExpression.textContent+=key;                 // only adds % after a number
                 }
             }
             else if (expression.length==0 && keysNum.includes(key)) // Only allow number at expression beginning
@@ -60,8 +62,15 @@ function setExpression(key){
 }
 
 function calculate(expression){
-    console.log(expression);
     if (checkExpression(expression)){
+        console.log(oldExpression.textContent);
+        for (i=0;i<expression.length;i++){
+            if (oldExpression.textContent=='') oldExpression.textContent+=expression[i];
+            else{
+                if (i>0) oldExpression.textContent+=expression[i];
+            }
+        }
+
         while(expression.length>1){
             keysOperators.forEach((operator)=>{
                 if (expression.includes(operator)){
@@ -73,8 +82,7 @@ function calculate(expression){
                 }
             })
         }
-
-        oldExpression.textContent=`Ans= ${expression}`;
+        curExpression.textContent=`${expression}`;
     }
 
     else{
@@ -86,7 +94,8 @@ function calculate(expression){
 }
 
 function checkExpression(expression){
-    return keysOperators.includes(expression.slice(-1))?false:true; // if last input is operator then return false
+    const lastInput=expression.slice(-1).join('').split('').slice(-1).join('');
+    return keysNum.includes(lastInput)?true:false; // if last input is operator then return false
 }
 
 function getResult(num1,operator,num2){

@@ -43,6 +43,7 @@ body{
 }
 
 #oldExpression{
+    margin-top: auto;
     text-align: end;
     padding-right: 20px;
     font-size: 20px;
