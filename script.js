@@ -1,6 +1,7 @@
 const buttons=document.querySelectorAll(`[data-key]`);
 const oldExpression= document.querySelector('#oldExpression');
 const curExpression= document.querySelector('#curExpression');
+curExpression.textContent='0';
 let expression=null;
 
 const keys=['/', '*', '%', '-', '+', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9','=','Enter','Backspace','End','.'];
@@ -30,6 +31,12 @@ const keysOperators=['/', '*', '-', '+','%'];
 function setExpression(key){
     expression=curExpression.textContent.trim(); // remove whitespace
     expression=expression.split(/([\/\*\+\-\%])/);
+    expression.forEach((item)=>{
+        if (item==''){
+            const index=expression.indexOf(item);
+            expression.splice(index,1);                 // remove unintended '' added by regex
+        }
+    });
     console.log(expression);
         if (key=='=' || key=='Enter') calculate(expression);
         else if (key=='Backspace' || key=='CE') curExpression.textContent=curExpression.textContent.slice(0,-1);
@@ -40,6 +47,7 @@ function setExpression(key){
         }
         else if (expression.length<=20){ // Max 40 chars allowed on curExpression
             if (key=='.'){
+                console.log(expression);
                 if (!expression.slice(-1).join('').split('').includes('.')) curExpression.textContent+=key;
             }
             else if (key=='%'){
@@ -53,7 +61,8 @@ function setExpression(key){
         }
             else if(expression.length>0){
                 if (keysOperators.includes(key)){
-                    if (!keysOperators.includes(expression.slice(-1))){ // Doesnt allow two operators in succession
+                    const lastInput=expression.slice(-1).join('').split('').slice(-1).join('');
+                    if (!keysOperators.includes(lastInput)){ // Doesnt allow two operators in succession
                         curExpression.textContent+=key;}
                 }
                 else curExpression.textContent+=key;
