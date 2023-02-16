@@ -83,13 +83,43 @@ function checkExpression(expression){
 }
 
 function getResult(num1,operator,num2){
-    num1=parseFloat(num1);
-    num2=parseFloat(num2);
-
     if (operator=='/') result=num1/num2;
-    if (operator=="*") result=num1*num2;
-    if (operator=='+') result=num1+num2;
-    if (operator=='-') result=num1-num2;
+    if (operator=="*") result=multiply(num1,num2);
+    if (operator=='+') result=add(num1,num2);
+    if (operator=='-') result=subtract(num1,num2);
     console.log(result);
     return result;
+}
+
+function add(num1,num2){
+    const round=getRoundNumber(num1,num2,'+');
+    
+    num1=parseFloat(num1);
+    num2=parseFloat(num2);
+    return (num1+num2).toFixed(round);
+}
+
+function subtract(num1,num2){
+    const round=getRoundNumber(num1,num2,'-');
+    
+    num1=parseFloat(num1);
+    num2=parseFloat(num2);
+    return (num1-num2).toFixed(round);
+}
+
+function multiply(num1,num2){
+    const round=getRoundNumber(num1,num2,'*');
+    
+    num1=parseFloat(num1);
+    num2=parseFloat(num2);
+    return (num1*num2).toFixed(round);
+}
+
+function getRoundNumber(num1,num2,operator){
+    let round1=0;
+    let round2=0;
+    if (num1.includes('.')) round1+=num1.split('.').slice(-1).join('').length;
+    if (num2.includes('.')) round2+=num2.split('.').slice(-1).join('').length;
+    if (operator=='+' || operator=='-') return round1>round2?round1:round2;
+    if (operator=='*') return round1+round2;
 }
