@@ -3,9 +3,9 @@ const oldExpression= document.querySelector('#oldExpression');
 const curExpression= document.querySelector('#curExpression');
 let expression=null;
 
-const keys=['/', '*', '-', '+', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9','=','Enter','Backspace','End','.'];
+const keys=['/', '*', '%', '-', '+', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9','=','Enter','Backspace','End','.'];
 const keysNum=['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
-const keysOperators=['/', '*', '-', '+'];
+const keysOperators=['/', '*', '-', '+','%'];
 
 // Event Listeners
 
@@ -29,7 +29,7 @@ const keysOperators=['/', '*', '-', '+'];
 // Functions
 function setExpression(key){
     expression=curExpression.textContent.trim(); // remove whitespace
-    expression=expression.split(/([\/\*\+\-])/);
+    expression=expression.split(/([\/\*\+\-\%])/);
         if (key=='=' || key=='Enter') calculate(expression);
         else if (key=='Backspace' || key=='CE') curExpression.textContent=curExpression.textContent.slice(0,-1);
         else if (key=='End'){
@@ -39,6 +39,12 @@ function setExpression(key){
         else if (expression.length<=20){ // Max 40 chars allowed on curExpression
             if (key=='.'){
                 if (!expression.slice(-1).join('').split('').includes('.')) curExpression.textContent+=key;
+            }
+            else if (key=='%'){
+                const lastInput=expression.slice(-1).join('').split('').slice(-1).join('');
+                if (keysNum.includes(lastInput)) {
+                    curExpression.textContent+=key;
+                }
             }
             else if (expression.length==0 && keysNum.includes(key)) // Only allow number at expression beginning
             {curExpression.textContent+=key;
@@ -54,6 +60,7 @@ function setExpression(key){
 }
 
 function calculate(expression){
+    console.log(expression);
     if (checkExpression(expression)){
         while(expression.length>1){
             keysOperators.forEach((operator)=>{
@@ -84,6 +91,7 @@ function checkExpression(expression){
 
 function getResult(num1,operator,num2){
     if (operator=='/') result=num1/num2;
+    if (operator=='%') result=(num1*num2)/100;
     if (operator=="*") result=multiply(num1,num2);
     if (operator=='+') result=add(num1,num2);
     if (operator=='-') result=subtract(num1,num2);
