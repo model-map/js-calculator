@@ -74,16 +74,18 @@ function setExpression(key){
         }
 }
 
+let lastExpression='';
 function calculate(expression){
+    console.log('exp ',expression);
+    console.log('lastExp ',lastExpression);
     if (checkExpression(expression)){
-        console.log(oldExpression.textContent);
         for (i=0;i<expression.length;i++){
             if (oldExpression.textContent=='') oldExpression.textContent+=expression[i];
             else{
                 if (i>0) oldExpression.textContent+=expression[i];
             }
         }
-        oldExpression.textContent=`(${oldExpression.textContent})`;
+        if (!checkExpressionEquality(expression,lastExpression)) oldExpression.textContent=`(${oldExpression.textContent})`;
 
         while(expression.length>1){
             keysOperators.forEach((operator)=>{
@@ -103,8 +105,7 @@ function calculate(expression){
         // when expression isnt valid
         // Add css to shake the curExpression a bit in red
     }
-    
-
+    lastExpression=expression;
 }
 
 function checkExpression(expression){
@@ -153,4 +154,8 @@ function getRoundNumber(num1,num2,operator){
     if (num2.includes('.')) round2+=num2.split('.').slice(-1).join('').length;
     if (operator=='+' || operator=='-') return round1>round2?round1:round2;
     if (operator=='*') return round1+round2;
+}
+
+function checkExpressionEquality(expression,lastExpression){
+    return expression.every((item)=>lastExpression.includes(item));
 }
