@@ -129,6 +129,10 @@ button{
     border-radius: 15px;
 }
 
+button[disabled]{
+    background-color: lightgrey;
+}
+
 .buttons{
     padding: 15px;
     padding-bottom: 25px;

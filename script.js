@@ -70,6 +70,7 @@ function calculate(expression){
                 if (i>0) oldExpression.textContent+=expression[i];
             }
         }
+        oldExpression.textContent=`(${oldExpression.textContent})`;
 
         while(expression.length>1){
             keysOperators.forEach((operator)=>{
