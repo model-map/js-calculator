@@ -128,6 +128,7 @@ function add(num1,num2){
     
     num1=parseFloat(num1);
     num2=parseFloat(num2);
+    if (num1==9 && num2==10) return `21 (you stupid)`;
     return (num1+num2).toFixed(round);
 }
 
